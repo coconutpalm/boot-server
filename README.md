@@ -63,6 +63,10 @@ Note: boot-http will automatically wrap responses in middlewares to
 add content type and charset (see `--charset` option) to response
 headers.
 
+Note: The handler symbol must include a fully qualified namespace as shown in
+the example above (due to a limitation in boot). If the task is throwing
+java.lang.NullPointerException's this is most likely the cause.
+
 ### Composability
 
 You may have noticed the `wait` task being used after all the
@@ -141,6 +145,9 @@ are not found.
 ```bash
 boot serve -d target -N myapp.server/custom-not-found wait
 ```
+
+Note: Just like the ring handler, the not-found handler also requires a symbol
+with a fully qualified namespace, even if invoked from a build.boot file.
 
 #### -S / --charset
 
