@@ -1,3 +1,8 @@
+# 0.9.0
+
+- Add support for Immutant in addition to http-kit and Jetty
+- Update boot version (2.8.2), Clojure version (1.9.0), bootlaces version (0.1.13), boot-test version (1.2.0)
+
 # 0.8.3
 
 - Fix: load nREPL dependency conditionally

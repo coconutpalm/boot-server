@@ -5,7 +5,7 @@ that can serve resources, directories or a typical ring handler.
 
 [](dependency)
 ```clojure
-[pandeiro/boot-http "0.8.3"] ;; latest release
+[pandeiro/boot-http "0.9.0"] ;; latest release
 ```
 [](/dependency)
 
@@ -111,6 +111,15 @@ Use the HTTP Kit webserver instead of Jetty.
 boot -d pandeiro/boot-http serve -d . -k wait  # uses httpkit
 ```
 
+#### -I / --immutant
+
+Use the Immutant webserver instead of Jetty.  Immutant supports both websockets and https.
+See also: [Sente](https://github.com/ptaoussanis/sente)
+
+```bash
+boot -d pandeiro/boot-http serve -d . -I wait  # uses immutant
+```
+
 #### -n / --nrepl
 
 Start an nREPL server for access to the http server. Accepts
@@ -148,7 +157,7 @@ Charset to use when serving resources or files. Defaults to UTF-8.
 
 #### -t / --ssl
 
-Serve over HTTPS (see `-T / --ssl-props` as well): Jetty only.
+Serve over HTTPS (see `-T / --ssl-props` as well): Jetty/Immutant only.
 
 ## API and Roadmap
 

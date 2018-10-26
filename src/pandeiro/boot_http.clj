@@ -23,6 +23,9 @@
 (def httpkit-dep
   '[http-kit "2.1.19"])
 
+(def immutant-dep
+  '[org.immutant/web "2.1.10"])
+
 (defn nrepl-deps
   []
   (letfn [(tools-nrepl? [spec]
@@ -45,8 +48,9 @@
    r resource-root ROOT str  "The root prefix when serving resources from classpath"
    p port          PORT int  "The port to listen on. (Default: 3000)"
    k httpkit            bool "Use Http-kit server instead of Jetty"
+   I immutant           bool "Use Immutant server instead of Jetty"
    s silent             bool "Silent-mode (don't output anything)"
-   t ssl                bool "Serve via Jetty SSL connector on localhost on default port 3443 using cert from ./boot-http-keystore.jks"
+   t ssl                bool "Serve via Jetty/Immutant SSL connector on localhost on default port 3443 using cert from ./boot-http-keystore.jks"
    T ssl-props     SSL  edn  "Override default SSL properties e.g. \"{:port 3443, :keystore \"boot-http-keystore.jks\", :key-password \"p@ssw0rd\"}\""
    R reload             bool "Reload modified namespaces on each request."
    n nrepl         REPL edn  "nREPL server parameters e.g. \"{:port 3001, :bind \"0.0.0.0\"}\""
@@ -59,7 +63,10 @@
                         (throw (IllegalArgumentException.
                                  (str "Expected map for ssl-props got \"" ssl-props "\"")))
                         (merge ssl-defaults (or ssl-props {}))))
-        server-dep  (if httpkit httpkit-dep jetty-dep)
+        server-dep  (cond 
+                      httpkit httpkit-dep 
+                      immutant immutant-dep
+                      :else jetty-dep)
         deps        (cond-> serve-deps
                       true               (conj server-dep)
                       (not (nil? nrepl)) (concat (nrepl-deps)))
@@ -83,7 +90,7 @@
                          (http/server
                           {:dir ~dir, :port ~port, :handler '~handler,
                            :ssl-props ~ssl-props,
-                           :reload '~reload, :env-dirs ~(vec (:directories pod/env)), :httpkit ~httpkit,
+                           :reload '~reload, :env-dirs ~(vec (:directories pod/env)), :httpkit ~httpkit, :immutant ~immutant,
                            :not-found '~not-found,
                            :resource-root ~resource-root}))
                        (def nrepl-server
@@ -94,7 +101,7 @@
                                (:human-name server)
                                (if ~ssl-props "https" "http")
                                (:local-port server)))))]
-    (when (and silent (not httpkit))
+    (when (and silent (not httpkit) (not immutant))
       (silence-jetty!))
     (core/cleanup
      (pod/with-eval-in worker

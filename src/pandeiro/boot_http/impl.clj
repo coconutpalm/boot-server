@@ -111,7 +111,7 @@
       (resources-handler opts)))
 
 ;;
-;; Jetty / HTTP Kit
+;; Jetty / HTTP Kit / Immutant
 ;;
 
 (defn- start-httpkit [handler opts]
@@ -129,8 +129,25 @@
      :local-port (-> server .getConnectors first .getLocalPort)
      :stop-server #(.stop server)}))
 
-(defn server [{:keys [port httpkit ssl-props charset] :as opts}]
-  ((if httpkit start-httpkit start-jetty)
+(defn- start-immutant [handler opts]
+  (require 'immutant.web)
+  (let [server ((resolve 'immutant.web/run) handler opts)]
+    ;;TODO:
+    ;; Opts isn't quite right for Immutant.  The following keys needs translation:
+    ;;  - :dir -> :path
+    ;;  - :??? -> :host  - Interface(s) to listen on
+    ;;  - If :ssl, then need to wrap in (options ...) and
+    ;;    - :port ->  :ssl-port
+    {:server server
+     :human-name "Immutant"
+     :stop-server #((resolve 'immutant.web/stop) server)}))
+
+(defn server [{:keys [port httpkit immutant ssl-props charset] :as opts}]
+  ((cond 
+     httpkit start-httpkit
+     immutant start-immutant
+     :else start-jetty)
+   
    (-> (ring-handler opts)
        wrap-content-type
        wrap-not-modified
