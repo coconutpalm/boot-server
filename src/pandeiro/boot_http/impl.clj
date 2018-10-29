@@ -129,13 +129,20 @@
      :local-port (-> server .getConnectors first .getLocalPort)
      :stop-server #(.stop server)}))
 
-(defn- start-immutant [handler opts]
+(defn- start-immutant [handler input-opts]
   (require 'immutant.web)
-  (let [server ((resolve 'immutant.web/run) handler opts)]
+  (let [run (resolve 'immutant.web/run)
+        key-translations
+        {:dir :static-dir
+         :port :port
+         :host :host}
+        opts (->> (keys key-translations)
+                  (mapcat (fn [k] (if (k input-opts)
+                                    [(k key-translations) (k input-opts)]
+                                    []))))
+        server (run handler opts)]
     ;;TODO:
     ;; Opts isn't quite right for Immutant.  The following keys needs translation:
-    ;;  - :dir -> :path
-    ;;  - :??? -> :host  - Interface(s) to listen on
     ;;  - If :ssl, then need to wrap in (options ...) and
     ;;    - :port ->  :ssl-port
     {:server server
