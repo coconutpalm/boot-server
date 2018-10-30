@@ -10,7 +10,8 @@
 (def default-port 3000)
 
 ;keystore can be file path or resource
-(def ssl-defaults {:port 3443 :keystore (str (clojure.java.io/resource "boot-http-keystore.jks")) :key-password "p@ssw0rd"})
+(def ssl-default-port 3443)
+(def ssl-defaults {:port ssl-default-port :keystore (str (clojure.java.io/resource "boot-http-keystore.jks")) :key-password "p@ssw0rd"})
 
 (def serve-deps
   '[[ring/ring-core "1.4.0"]
@@ -57,12 +58,14 @@
    N not-found     SYM  sym  "a ring handler for requested resources that aren't in your directory. Useful for pushState."
    S charset       CHAR str  "charset to use when serving static resources and files. (Default: utf-8)"]
 
-  (let [port        (or port default-port)
-        ssl-props   (when (or ssl ssl-props)
+  (let [ssl-props   (when (or ssl ssl-props)
                       (if (and ssl-props (not (map? ssl-props)))
                         (throw (IllegalArgumentException.
                                  (str "Expected map for ssl-props got \"" ssl-props "\"")))
                         (merge ssl-defaults (or ssl-props {}))))
+        port        (if (seq ssl-props) 
+                      (or port (:port ssl-props) ssl-default-port)
+                      (or port default-port))
         server-dep  (cond 
                       httpkit httpkit-dep 
                       immutant immutant-dep

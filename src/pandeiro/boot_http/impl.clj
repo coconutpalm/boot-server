@@ -135,22 +135,23 @@
         key-translations
         {:dir :static-dir
          :port :port
-         :host :host}
+         :host :host
+         :ssl-port :ssl-port
+         :keystore :keystore
+         :key-password :key-password}
         opts (->> (keys key-translations)
                   (mapcat (fn [k] (if (k input-opts)
                                     [(k key-translations) (k input-opts)]
                                     []))))
         server (run handler opts)]
-    ;;TODO:
-    ;; Opts isn't quite right for Immutant.  The following keys needs translation:
-    ;;  - If :ssl, then need to wrap in (options ...) and
-    ;;    - :port ->  :ssl-port
     {:server server
      :human-name "Immutant"
+     :local-port (or (:port input-opts) (:ssl-port input-opts))
      :stop-server #((resolve 'immutant.web/stop) server)}))
 
+
 (defn server [{:keys [port httpkit immutant ssl-props charset] :as opts}]
-  ((cond 
+  ((cond
      httpkit start-httpkit
      immutant start-immutant
      :else start-jetty)
@@ -159,14 +160,14 @@
        wrap-content-type
        wrap-not-modified
        (wrap-default-charset (or charset "utf-8")))
-    (cond-> {:port  port
-             :join? false}
-            (seq ssl-props)
-            (merge {:http?        false
-                    :ssl?         (boolean (seq ssl-props))
-                    :ssl-port     (:port ssl-props)
-                    :keystore     (:keystore ssl-props)
-                    :key-password (:key-password ssl-props)}))))
+   
+   (cond-> {:join? false}
+     (not (seq ssl-props)) (merge {:port port})
+     (seq ssl-props)       (merge {:http?        false
+                                   :ssl?         (boolean (seq ssl-props))
+                                   :ssl-port     port
+                                   :keystore     (:keystore ssl-props)
+                                   :key-password (:key-password ssl-props)}))))
 
 ;;
 ;; nREPL
