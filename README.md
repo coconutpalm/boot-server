@@ -103,6 +103,8 @@ The actual port number being used is available as `:http-port` on the fileset.
 boot -d pandeiro/boot-http serve -d . -p 8888 wait
 ```
 
+Note: If this is specified, it overrides any :port inside the ssl-props parameter.
+
 #### -k / --httpkit
 
 Use the HTTP Kit webserver instead of Jetty.
