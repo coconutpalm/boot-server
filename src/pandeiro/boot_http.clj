@@ -121,3 +121,14 @@
     (core/with-pre-wrap fileset
       @start
       (assoc fileset :http-port (pod/with-eval-in worker (:local-port server))))))
+
+
+(deftask dev
+  "Continuously reubild and install the jar, with a REPL open."
+  []
+  (comp
+   (watch)
+   (repl :server true)
+   (pom)
+   (jar)
+   (install)))
