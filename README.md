@@ -41,6 +41,8 @@ With that in mind, I would greatly appreciate if PRs follow this checklist:
 
 ### Desired PRs
 
+* Anything improving test coverage / testability.
+
 * Previously the community had written Aleph support in several earlier PRS but none of
 those efforts merge cleanly anymore.  If interested parties fix that I'd be happy
 to consider PRs re-adding this functionality.
