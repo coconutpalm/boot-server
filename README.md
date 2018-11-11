@@ -36,6 +36,7 @@ With that in mind, I would greatly appreciate if PRs follow this checklist:
 * Update the project version number in:
   * build.boot
   * The project documentation: README.md and/or the web site markdown.
+* If a change is a breaking change, update the minor version number; else update the patchlevel version number.
 * Update project documentation with any new instructions required to use your new feature.
 
 ### Desired PRs
