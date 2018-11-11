@@ -5,9 +5,48 @@ that can serve resources, directories or a typical ring handler.
 
 [](dependency)
 ```clojure
-[coconutpalm/boot-server "0.9.1"] ;; latest release
+[coconutpalm/boot-server "0.9.1"] ;; new release RSN
 ```
 [](/dependency)
+
+## Community support
+
+This project exists because the original maintainer stopped maintaining the
+code and/or responding to PR requests.  I don't want that to happen here, so:
+
+* I'm establishing some parameters for PRs to be accepted
+* If I cannot respond in a resonable time (given this is a solo effort and I 
+  have a day job not involving Clojure/script), I invite anyone interested in
+  continuing this effort to file a ticket against the project along with a PR
+  showing you can be trusted to further this effort in a responsible manner.
+  If I can't respond to that ticket in a timely manner and there aren't extenuating
+  circumstances (e.g.: a death in the family), I'll transfer project ownership to you.
+
+### PR checklist
+
+There are two kinds of PRs:
+* Work-in-progress (WIP) PRs where a developer wants committer feedback before
+  investing time to create a full PR.
+* A full PR that is ready to review and merge.
+
+With that in mind, I would greatly appreciate if PRs follow this checklist:
+* WIP PRs include (WIP) at the beginning fo the title.  Otherwise:
+* Include tests and/or justification(s) for no tests.
+* Update CHANGELOG in the form already in the file.
+* Update the project version number in:
+  * build.boot
+  * The project documentation: README.md and/or the web site markdown.
+* Update project documentation with any new instructions required to use your new feature.
+
+### Desired PRs
+
+* Previously the community had written Aleph support in several earlier PRS but none of
+those efforts merge cleanly anymore.  If interested parties fix that I'd be happy
+to consider PRs re-adding this functionality.
+
+* Previous community efforts ditched the individual options for selecting a server other
+than Jetty, instead consolidating these into a single flag --server="http-kit", etc.
+I would welcome efforts to re-add this feature also.
 
 ## Usage
 
