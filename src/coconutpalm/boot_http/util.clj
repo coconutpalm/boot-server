@@ -1,4 +1,4 @@
-(ns pandeiro.boot-http.util)
+(ns coconutpalm.boot-http.util)
 
 (defn resolve-sym [sym]
   (require (symbol (namespace sym)) :reload)

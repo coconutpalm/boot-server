@@ -1,4 +1,4 @@
-(ns pandeiro.boot-http
+(ns coconutpalm.boot-http
   {:boot/export-tasks true}
   (:require
    [boot.pod           :as pod]
@@ -84,8 +84,8 @@
                                              into deps))
         start       (delay
                      (pod/with-eval-in worker
-                       (require '[pandeiro.boot-http.impl :as http]
-                                '[pandeiro.boot-http.util :as u]
+                       (require '[coconutpalm.boot-http.impl :as http]
+                                '[coconutpalm.boot-http.util :as u]
                                 '[boot.util               :as boot])
                        (when '~init
                          (u/resolve-and-invoke '~init))
@@ -122,13 +122,3 @@
       @start
       (assoc fileset :http-port (pod/with-eval-in worker (:local-port server))))))
 
-
-(deftask dev
-  "Continuously reubild and install the jar, with a REPL open."
-  []
-  (comp
-   (watch)
-   (repl :server true)
-   (pom)
-   (jar)
-   (install)))
