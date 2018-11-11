@@ -5,7 +5,7 @@ that can serve resources, directories or a typical ring handler.
 
 [](dependency)
 ```clojure
-[pandeiro/boot-http "0.9.0"] ;; latest release
+[coconutpalm/boot-server "0.9.1"] ;; latest release
 ```
 [](/dependency)
 
@@ -18,22 +18,22 @@ that can serve resources, directories or a typical ring handler.
 This serves the **current directory** at port **3000**:
 
 ```bash
-boot -d pandeiro/boot-http serve -d . wait
+boot -d coconutpalm/boot-server serve -d . wait
 ```
 
 To inspect the meanings of the flags and other tasks, use boot's built-in
 documentation mechanism:
 
 ```bash
-boot -d pandeiro/boot-http -h       # show all tasks on the classpath
-boot -d pandeiro/boot-http serve -h # show serve's usage
+boot -d coconutpalm/boot-server -h       # show all tasks on the classpath
+boot -d coconutpalm/boot-server serve -h # show serve's usage
 ```
 
 ### Within a project
 
 If you already have a `build.boot`, add
-`pandeiro/boot-http` to `:dependencies`
-and `(require '[pandeiro.boot-http :refer :all])`.
+`coconutpalm/boot-server` to `:dependencies`
+and `(require '[coconutpalm.boot-http :refer :all])`.
 
 You can use boot-http for three different use cases:
 
@@ -104,7 +104,7 @@ Use a specific port. A value of `0` will automatically bind to a free port.
 The actual port number being used is available as `:http-port` on the fileset.
 
 ```bash
-boot -d pandeiro/boot-http serve -d . -p 8888 wait
+boot -d coconutpalm/boot-server serve -d . -p 8888 wait
 ```
 
 Note: If this is specified, it overrides any :port inside the ssl-props parameter.
@@ -114,7 +114,7 @@ Note: If this is specified, it overrides any :port inside the ssl-props paramete
 Use the HTTP Kit webserver instead of Jetty.
 
 ```bash
-boot -d pandeiro/boot-http serve -d . -k wait  # uses httpkit
+boot -d coconutpalm/boot-server serve -d . -k wait  # uses httpkit
 ```
 
 #### -I / --immutant
@@ -123,7 +123,7 @@ Use the Immutant webserver instead of Jetty.  Immutant supports both websockets 
 See also: [Sente](https://github.com/ptaoussanis/sente)
 
 ```bash
-boot -d pandeiro/boot-http serve -d . -I wait  # uses immutant
+boot -d coconutpalm/boot-server serve -d . -I wait  # uses immutant
 ```
 
 #### -n / --nrepl
@@ -133,7 +133,7 @@ Start an nREPL server for access to the http server. Accepts
 and port.
 
 ```bash
-boot -d pandeiro/boot-http serve -d . -n "{:port 3001}"
+boot -d coconutpalm/boot-server serve -d . -n "{:port 3001}"
 ```
 
 #### -i / --init and -c / --cleanup
@@ -185,7 +185,7 @@ parts I had to change. Thanks!
 
 ## License
 
-Copyright © 2015 Murphy McMahon
+Copyright © 2015 Murphy McMahon, 2018 David Orme
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
@@ -194,5 +194,5 @@ your option) any later version.
 [boot-cljs-example]: https://github.com/adzerk/boot-cljs-example
 [installboot]:       https://github.com/boot-clj/boot#install
 [boot-discourse]:    http://hoplon.discoursehosting.net/t/boot-http-0-4-0/361
-[build]:             https://travis-ci.org/pandeiro/boot-http
-[badge]:             https://travis-ci.org/pandeiro/boot-http.png?branch=master
+[build]:             https://travis-ci.org/coconutpalm/boot-server
+[badge]:             https://travis-ci.org/coconutpalm/boot-server.png?branch=master

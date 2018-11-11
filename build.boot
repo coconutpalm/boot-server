@@ -1,12 +1,12 @@
 (def task-options
-  {:project 'coconutpalm/boot-http
+  {:project 'coconutpalm/boot-server
    :version "0.9.1"
-   :project-name "coconutpalm/boot-http"
+   :project-name "coconutpalm/boot-server"
    :project-openness :open-source
   
-   :description "A simple HTTP `serve` task for use with [the boot build tool][boot] that can serve resources, directories or a typical ring handler."
+   :description "A simple `serve` task for use with [the boot build tool][boot] that can serve resources, directories or a typical ring handler."
   
-   :scm-url "https://github.com/fuse-code/boot-http"
+   :scm-url "https://github.com/coconutpalm/boot-server"
   
    :test-sources "test"
    :test-resources "test-extra/resources"})
@@ -22,13 +22,14 @@
  '[clj-boot.core :refer :all]
  '[adzerk.bootlaces :refer :all] ;; tasks: build-jar push-snapshot push-release
  '[adzerk.boot-test :refer :all]
- '[pandeiro.boot-http :refer :all])
+ '[coconutpalm.boot-http :refer :all])
 
-(deftask test-boot-http []
+
+(deftask test-boot-server []
   (merge-env!
    :dependencies (concat (get-env :dev-dependencies) serve-deps)
    :resource-paths #{"test-extra/resources"})
-  (test :namespaces #{'pandeiro.boot-http-tests}))
+  (test :namespaces #{'coconutpalm.boot-http-tests}))
 
 
 (set-task-options! task-options)
