@@ -14,7 +14,7 @@ that can serve resources, directories or a typical ring handler.
 This project exists because the original maintainer stopped maintaining the
 code and/or responding to PR requests.  I don't want that to happen here, so:
 
-* I'm establishing some parameters for PRs to be accepted
+* I'm establishing some parameters for PRs to be accepted.
 * If I cannot respond in a resonable time (given this is a solo effort and I 
   have a day job not involving Clojure/script), I invite anyone interested in
   continuing this effort to file a ticket against the project along with a PR
