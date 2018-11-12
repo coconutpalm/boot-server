@@ -12,17 +12,19 @@
    :test-resources "test-extra/resources"})
 
 
-(set-env!
- :dev-dependencies '[[peridot "0.4.3"]]
- 
- :dependencies     '[[org.clojure/clojure    "1.9.0"]
-                     [coconutpalm/boot-boot  "LATEST" :scope "test"]])
+(set-env! :resource-paths #{"resources" "site-src"}
+          :source-paths   #{"src" "test"}
+          
+          :dev-dependencies '[[peridot "0.4.3"]]
 
-(require
- '[clj-boot.core :refer :all]
- '[adzerk.bootlaces :refer :all] ;; tasks: build-jar push-snapshot push-release
- '[adzerk.boot-test :refer :all]
- '[coconutpalm.boot-http :refer :all])
+          :dependencies     '[[org.clojure/clojure    "1.9.0"]
+                              [coconutpalm/boot-boot  "LATEST" :scope "test"]])
+
+
+(require '[clj-boot.core :refer :all]
+         '[adzerk.bootlaces :refer :all] ;; tasks: build-jar push-snapshot push-release
+         '[adzerk.boot-test :refer :all]
+         '[coconutpalm.boot-http :refer :all])
 
 
 (deftask test-boot-server []
