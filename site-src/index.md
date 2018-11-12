@@ -1,6 +1,6 @@
 ---
 name: boot-server
-description: A fork of the (unmaintained) Boot `server` task with community PRs integrated and support for Immutant added. Originally from pandeiro/boot-http.
+description: A fork of the Boot `server` task with community PRs integrated and support for Immutant added. Originally from pandeiro/boot-http.
 ---
 ## Latest version
 
