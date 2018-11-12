@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport"><meta content="Library Documentation - boot-server - A fork of the Boot `server` task with community PRs integrated and support for Immutant added. Originally from pandeiro/boot-http." itemprop="description" name="description"><title>boot-server</title><link href="/favicon.ico" rel="shortcut icon"><link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" rel="stylesheet"><link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro|Source+Serif+Pro" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Josefin+Slab" rel="stylesheet"><script crossorigin="anonymous" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script></head><body><div class="jumbotron"><div class="container"><h1>boot-server</h1><p>A fork of the Boot `server` task with community PRs integrated and support for Immutant added. Originally from pandeiro/boot-http.</p></div></div><div class="container"><div class="row"><div class="col-md-12"><h2><a href="#latest-version" name="latest-version"></a>Latest version</h2>
+<ul>
+  <li><a href="https://github.com/coconutpalm/boot-server">The Code</a></li>
+  <li><a href="codox/index.html">Codox</a> generated from the code</li>
+  <li>Latest binary release: <a href="https://clojars.org/coconutpalm/boot-server"><img src="https://img.shields.io/clojars/v/coconutpalm/boot-server.svg" alt="Clojars Project" /></a></li>
+  <li>More detailed instructions are below.</li>
+</ul>
+<h2><a href="#community-support" name="community-support"></a>Community support</h2>
+<p>This project exists because the original maintainer stopped maintaining the code and/or responding to PR requests. I don't want that to happen here, so:</p>
+<ul>
+  <li>I'm establishing some parameters for PRs to be accepted.</li>
+  <li>If I cannot respond in a resonable time (given this is a solo effort and I  have a day job not involving Clojure/script), I invite anyone interested in  continuing this effort to file a ticket against the project along with a PR  showing you can be trusted to further this effort in a responsible manner.  If I can't respond to that ticket in a timely manner and there aren't extenuating  circumstances (e.g.: a death in the family), I'll transfer project ownership to you.</li>
+</ul>
+<h3><a href="#pr-checklist" name="pr-checklist"></a>PR checklist</h3>
+<p>There are two kinds of PRs:</p>
+<ul>
+  <li>Work-in-progress (WIP) PRs where a developer wants committer feedback before  investing time to create a full PR.</li>
+  <li>A full PR that is ready to review and merge.</li>
+</ul>
+<p>With that in mind, I would greatly appreciate if PRs follow this checklist:</p>
+<ul>
+  <li>WIP PRs include (WIP) at the beginning fo the title. Otherwise:</li>
+  <li>Include tests and/or justification(s) for no tests.</li>
+  <li>Update CHANGELOG in the form already in the file.</li>
+  <li>Update the project version number in:</li>
+  <li>build.boot</li>
+  <li>The project documentation: README.md and/or the web site markdown.</li>
+  <li>If a change is a breaking change, update the minor version number; else update the patchlevel version number.</li>
+  <li>Update project documentation with any new instructions required to use your new feature.</li>
+</ul>
+<h3><a href="#desired-prs" name="desired-prs"></a>Desired PRs</h3>
+<ul>
+  <li>
+  <p>Anything improving test coverage / testability.</p></li>
+  <li>
+  <p>Previously the community had written Aleph support in several earlier PRS but none of those efforts merge cleanly anymore. If interested parties fix that I'd be happy to consider PRs re-adding this functionality.</p></li>
+  <li>
+  <p>Previous community efforts ditched the individual options for selecting a server other than Jetty, instead consolidating these into a single flag --server="http-kit", etc. I would welcome efforts to re-add this feature also.</p></li>
+</ul>
+<h2><a href="#usage" name="usage"></a>Usage</h2>
+<p>(The following examples assume you have <a href="https://github.com/boot-clj/boot#install">boot installed</a> and updated.)</p>
+<h3><a href="#command-line-no-setup" name="command-line-no-setup"></a>Command line, no setup</h3>
+<p>This serves the <strong>current directory</strong> at port <strong>3000</strong>:</p>
+<pre><code class="bash">boot -d coconutpalm/boot-server serve -d . wait
+</code></pre>
+<p>To inspect the meanings of the flags and other tasks, use boot's built-in documentation mechanism:</p>
+<pre><code class="bash">boot -d coconutpalm/boot-server -h       # show all tasks on the classpath
+boot -d coconutpalm/boot-server serve -h # show serve&#39;s usage
+</code></pre>
+<h3><a href="#within-a-project" name="within-a-project"></a>Within a project</h3>
+<p>If you already have a <code>build.boot</code>, add <code>coconutpalm/boot-server</code> to <code>:dependencies</code> and <code>(require &#39;[coconutpalm.boot-http :refer :all])</code>.</p>
+<p>You can use boot-http for three different use cases:</p>
+<h4><a href="#1-serve-classpath-resources" name="1-serve-classpath-resources"></a>1. Serve classpath resources</h4>
+<pre><code class="bash">boot serve wait   # or from REPL: (boot (serve) (wait))
+</code></pre>
+<h4><a href="#2-serve-files-on-chosen-directory" name="2-serve-files-on-chosen-directory"></a>2. Serve files on chosen directory</h4>
+<pre><code class="bash">boot serve -d target wait   # or at the REPL: (boot (serve :dir &quot;target&quot;) (wait))
+</code></pre>
+<p>That would serve the <code>target</code> directory if it exists.</p>
+<p>Instead of specifying a directory, you can also specify a ring handler:</p>
+<h4><a href="#3-start-server-with-given-ring-handler" name="3-start-server-with-given-ring-handler"></a>3. Start server with given Ring handler</h4>
+<pre><code class="bash">boot serve -H myapp.server/app -R wait   # (boot (serve :handler &#39;myapp.server/app :reload true) (wait))
+</code></pre>
+<p>Note: boot-http will automatically wrap responses in middlewares to add content type and charset (see <code>--charset</code> option) to response headers.</p>
+<p>Note: The handler symbol must include a fully qualified namespace as shown in the example above (due to a limitation in boot). If the task is throwing java.lang.NullPointerException's this is most likely the cause.</p>
+<h3><a href="#composability" name="composability"></a>Composability</h3>
+<p>You may have noticed the <code>wait</code> task being used after all the command-line invocations so far. This is because by itself, the <code>serve</code> task does not block and thus exits immediately.</p>
+<p>What good is that? It means you can compose with other tasks.</p>
+<p>In <a href="https://github.com/adzerk/boot-cljs-example">boot-cljs-example</a>, for example, <code>serve</code> is invoked like so:</p>
+<pre><code class="bash">boot serve watch speak reload cljs-repl cljs -usO none
+</code></pre>
+<p>which is, again, the same as:</p>
+<pre><code class="clojure">(comp (serve)
+      (watch)
+      (speak)
+      (reload)
+      (cljs-repl)
+      (cljs :optimizations :none))
+</code></pre>
+<p>In that case, since <code>serve</code> is given a directory, it serves the directory and whatever resources can be found on the classpath, and then gets out of the way.</p>
+<h3><a href="#other-options" name="other-options"></a>Other options</h3>
+<h4><a href="#p-port" name="p-port"></a>-p / --port</h4>
+<p>Use a specific port. A value of <code>0</code> will automatically bind to a free port. The actual port number being used is available as <code>:http-port</code> on the fileset.</p>
+<pre><code class="bash">boot -d coconutpalm/boot-server serve -d . -p 8888 wait
+</code></pre>
+<p>Note: If this is specified, it overrides any :port inside the ssl-props parameter.</p>
+<h4><a href="#k-httpkit" name="k-httpkit"></a>-k / --httpkit</h4>
+<p>Use the HTTP Kit webserver instead of Jetty.</p>
+<pre><code class="bash">boot -d coconutpalm/boot-server serve -d . -k wait  # uses httpkit
+</code></pre>
+<h4><a href="#i-immutant" name="i-immutant"></a>-I / --immutant</h4>
+<p>Use the Immutant webserver instead of Jetty. Immutant supports both websockets and https. See also: <a href="https://github.com/ptaoussanis/sente">Sente</a></p>
+<pre><code class="bash">boot -d coconutpalm/boot-server serve -d . -I wait  # uses immutant
+</code></pre>
+<h4><a href="#n-nrepl" name="n-nrepl"></a>-n / --nrepl</h4>
+<p>Start an nREPL server for access to the http server. Accepts <code>:port</code> and <code>:bind</code> options for setting nREPL server IP and port.</p>
+<pre><code class="bash">boot -d coconutpalm/boot-server serve -d . -n &quot;{:port 3001}&quot;
+</code></pre>
+<h4><a href="#i-init-and-c-cleanup" name="i-init-and-c-cleanup"></a>-i / --init and -c / --cleanup</h4>
+<p>Setup and teardown functions to run.</p>
+<h4><a href="#s-silent" name="s-silent"></a>-s / --silent</h4>
+<p>Silences all output.</p>
+<h4><a href="#r-reload" name="r-reload"></a>-R / --reload</h4>
+<p>Wrap provided ring handler with ring-reload.</p>
+<h4><a href="#n-not-found" name="n-not-found"></a>-N / --not-found</h4>
+<p>Use the provided symbol's function to handle requests for results that are not found.</p>
+<pre><code class="bash">boot serve -d target -N myapp.server/custom-not-found wait
+</code></pre>
+<p>Note: Just like the ring handler, the not-found handler also requires a symbol with a fully qualified namespace, even if invoked from a build.boot file.</p>
+<h4><a href="#s-charset" name="s-charset"></a>-S / --charset</h4>
+<p>Charset to use when serving resources or files. Defaults to UTF-8.</p>
+<h4><a href="#t-ssl" name="t-ssl"></a>-t / --ssl</h4>
+<p>Serve over HTTPS (see <code>-T / --ssl-props</code> as well): Jetty/Immutant only.</p>
+<h2><a href="#api-and-roadmap" name="api-and-roadmap"></a>API and Roadmap</h2>
+<p>Right now that is about it. It basically blends the functionality of <code>python3 -m http.server</code> and a subset of <code>lein ring server</code>.</p>
+<p>Feel free to add issues or comment <a href="http://hoplon.discoursehosting.net/t/boot-http-0-4-0/361">here</a> if you have any ideas.</p>
+<h2><a href="#acknowledgements" name="acknowledgements"></a>Acknowledgements</h2>
+<p>The boot guys basically wrote all of this or walked me through any parts I had to change. Thanks!</p>
+<h2><a href="#license" name="license"></a>License</h2>
+<p>Copyright © 2015 Murphy McMahon, 2018 David Orme</p>
+<p>Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.</p><hr><p><a href="/">Home page</a></p><p>&nbsp;</p></div></div></div></body></html>
