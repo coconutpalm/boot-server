@@ -1,6 +1,6 @@
 ---
 name: boot-server
-description: A simple `serve` task for use with Boot that can serve resources, directories or a typical ring handler.
+description: A fork of the (unmaintained) Boot `server` task with community PRs integrated and support for Immutant added. Originally from pandeiro/boot-http.
 ---
 ## Latest version
 
