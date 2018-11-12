@@ -27,11 +27,10 @@
          '[coconutpalm.boot-http :refer :all])
 
 
-(deftask test-boot-server []
+(deftask add-test-dependencies []
   (merge-env!
    :dependencies (concat (get-env :dev-dependencies) serve-deps)
-   :resource-paths #{"test-extra/resources"})
-  (test :namespaces #{'coconutpalm.boot-http-tests}))
+   :resource-paths #{"test-extra/resources"}))
 
 
 (set-task-options! task-options)
