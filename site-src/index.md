@@ -166,7 +166,7 @@ boot -d coconutpalm/boot-server serve -d . -k wait  # uses httpkit
 Use the Immutant webserver instead of Jetty.  Immutant supports both websockets and https.
 See also: [Sente](https://github.com/ptaoussanis/sente)
 
-By default, boot-server disables Immutant's default `logback` configuration so you can
+By default, `boot-server` disables Immutant's default `logback` configuration so you can
 supply your own slf4j bridge and logger.
 
 ```bash
