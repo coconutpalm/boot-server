@@ -25,7 +25,8 @@
   '[http-kit "2.2.0"])
 
 (def immutant-dep
-  '[org.immutant/web "2.1.10"])
+  '[org.immutant/web "2.1.10"
+    :exclusions [ch.qos.logback/logback-classic]])
 
 (defn nrepl-deps
   []
