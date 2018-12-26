@@ -91,6 +91,7 @@ boot -d coconutpalm/boot-server serve -h # show serve&#39;s usage
 </code></pre>
 <h4><a href="#i-immutant" name="i-immutant"></a>-I / --immutant</h4>
 <p>Use the Immutant webserver instead of Jetty. Immutant supports both websockets and https. See also: <a href="https://github.com/ptaoussanis/sente">Sente</a></p>
+<p>By default, boot-server disables Immutant's default <code>logback</code> configuration so you can supply your own slf4j bridge and logger.</p>
 <pre><code class="bash">boot -d coconutpalm/boot-server serve -d . -I wait  # uses immutant
 </code></pre>
 <h4><a href="#n-nrepl" name="n-nrepl"></a>-n / --nrepl</h4>
